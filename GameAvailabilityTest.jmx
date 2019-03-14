@@ -11,11 +11,33 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="User Details Data Set " enabled="true">
+        <stringProp name="delimiter">,</stringProp>
+        <stringProp name="fileEncoding"></stringProp>
+        <stringProp name="filename">C:\Users\Stano\Documents\apache-jmeter-4.0\apache-jmeter-4.0\bin\TestData.txt</stringProp>
+        <boolProp name="ignoreFirstLine">false</boolProp>
+        <boolProp name="quotedData">false</boolProp>
+        <boolProp name="recycle">true</boolProp>
+        <stringProp name="shareMode">shareMode.all</stringProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="variableNames">username,password</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+      <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+        <collectionProp name="CookieManager.cookies"/>
+        <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+      </CookieManager>
+      <hashTree/>
+      <CacheManager guiclass="CacheManagerGui" testclass="CacheManager" testname="HTTP Cache Manager" enabled="true">
+        <boolProp name="clearEachIteration">true</boolProp>
+        <boolProp name="useExpires">true</boolProp>
+      </CacheManager>
+      <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Kitty Bingo Game Availability Test" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-          <intProp name="LoopController.loops">-1</intProp>
+          <stringProp name="LoopController.loops">5</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">1</stringProp>
         <stringProp name="ThreadGroup.ramp_time">1</stringProp>
@@ -39,14 +61,14 @@
               <elementProp name="u" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.name">u</stringProp>
-                <stringProp name="Argument.value">${username}</stringProp>
+                <stringProp name="Argument.value">katakana</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
               </elementProp>
               <elementProp name="p" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.name">p</stringProp>
-                <stringProp name="Argument.value">${password}</stringProp>
+                <stringProp name="Argument.value">qqq111</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
                 <boolProp name="HTTPArgument.use_equals">true</boolProp>
               </elementProp>
@@ -1644,6 +1666,79 @@ Please make sure the game is enabled,, an that Eyecon is up and running.</string
               <hashTree/>
             </hashTree>
           </hashTree>
+          <SmtpSampler guiclass="SmtpSamplerGui" testclass="SmtpSampler" testname="SMTP Sampler" enabled="true">
+            <stringProp name="SMTPSampler.server">smtp.gmail.com</stringProp>
+            <stringProp name="SMTPSampler.serverPort">25</stringProp>
+            <stringProp name="SMTPSampler.mailFrom">chinedugodson@gmail.com</stringProp>
+            <stringProp name="SMTPSampler.replyTo"></stringProp>
+            <stringProp name="SMTPSampler.receiverTo">stano@srgservicesltd.com</stringProp>
+            <stringProp name="SMTPSampler.receiverCC"></stringProp>
+            <stringProp name="SMTPSampler.receiverBCC"></stringProp>
+            <stringProp name="SMTPSampler.subject">Error results</stringProp>
+            <stringProp name="SMTPSampler.suppressSubject">false</stringProp>
+            <stringProp name="SMTPSampler.include_timestamp">true</stringProp>
+            <stringProp name="SMTPSampler.message">Game not available, please find a list of games that are not available</stringProp>
+            <stringProp name="SMTPSampler.plainBody">false</stringProp>
+            <stringProp name="SMTPSampler.attachFile"></stringProp>
+            <stringProp name="SMTPSampler.useSSL">false</stringProp>
+            <stringProp name="SMTPSampler.useStartTLS">true</stringProp>
+            <stringProp name="SMTPSampler.trustAllCerts">false</stringProp>
+            <stringProp name="SMTPSampler.enforceStartTLS">false</stringProp>
+            <stringProp name="SMTPSampler.useLocalTrustStore">false</stringProp>
+            <stringProp name="SMTPSampler.trustStoreToUse"></stringProp>
+            <boolProp name="SMTPSampler.use_eml">false</boolProp>
+            <stringProp name="SMTPSampler.emlMessageToSend"></stringProp>
+            <stringProp name="SMTPSampler.useAuth">true</stringProp>
+            <stringProp name="SMTPSampler.password">faithimex</stringProp>
+            <stringProp name="SMTPSampler.username">chinedugodson@gmail.com</stringProp>
+            <stringProp name="SMTPSampler.messageSizeStatistics">false</stringProp>
+            <stringProp name="SMTPSampler.enableDebug">false</stringProp>
+            <collectionProp name="SMTPSampler.headerFields"/>
+          </SmtpSampler>
+          <hashTree>
+            <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import org.apache.jmeter.assertions.AssertionResult;
+
+AssertionResult[] results = prev.getAssertionResults();
+StringBuilder body = new StringBuilder();
+for (AssertionResult result : results) {
+    body.append(result.getFailureMessage());
+    body.append(System.getProperty(&quot;line.separator&quot;));
+}
+vars.put(&quot;body&quot;, body.toString());</stringProp>
+            </BeanShellPreProcessor>
+            <hashTree/>
+            <JSR223Listener guiclass="TestBeanGUI" testclass="JSR223Listener" testname="JSR223 Listener" enabled="false">
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="script">import org.apache.jmeter.assertions.AssertionResult;
+
+try {
+    AssertionResult[] results = prev.getAssertionResults();
+
+    StringBuilder body = new StringBuilder();
+    String previousBody = vars.get(&quot;body&quot;);
+    if (previousBody != null) {
+        body.append(previousBody);
+    }
+    for (AssertionResult result : results) {
+        body.append(result.getName());
+        body.append(result.getFailureMessage());
+        body.append(System.getProperty(&quot;line.separator&quot;));
+    }
+    vars.put(&quot;body&quot;, body.toString());
+} catch (Throwable ex) {
+    log.error(&quot;Error in Groovy&quot;, ex);
+    throw ex;
+}</stringProp>
+              <stringProp name="scriptLanguage">groovy</stringProp>
+            </JSR223Listener>
+            <hashTree/>
+          </hashTree>
         </hashTree>
         <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results" enabled="true">
           <boolProp name="ResultCollector.error_logging">true</boolProp>
@@ -1681,8 +1776,8 @@ Please make sure the game is enabled,, an that Eyecon is up and running.</string
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
-        <MailerResultCollector guiclass="MailerVisualizer" testclass="MailerResultCollector" testname="Mailer Visualizer" enabled="true">
-          <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <MailerResultCollector guiclass="MailerVisualizer" testclass="MailerResultCollector" testname="Mailer Visualizer" enabled="false">
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
           <objProp>
             <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
@@ -1710,13 +1805,13 @@ Please make sure the game is enabled,, an that Eyecon is up and running.</string
             </value>
           </objProp>
           <elementProp name="MailerResultCollector.mailer_model" elementType="MailerModel">
-            <stringProp name="MailerModel.successLimit">0</stringProp>
+            <stringProp name="MailerModel.successLimit">100000000000</stringProp>
             <stringProp name="MailerModel.failureLimit">0</stringProp>
             <stringProp name="MailerModel.failureSubject">This Game is Currently Unavailable, Please check game provider</stringProp>
             <stringProp name="MailerModel.fromAddress">chinedugodson@gmail.com</stringProp>
             <stringProp name="MailerModel.smtpHost">smtp.gmail.com</stringProp>
             <stringProp name="MailerModel.successSubject"></stringProp>
-            <stringProp name="MailerModel.addressie">stano@srgservicesltd.com,stanosrg@gmail.com,bobk@srgservicesltd.com,summerr@srgservicesltd.com,kierap@srgservicesltd.com</stringProp>
+            <stringProp name="MailerModel.addressie">stanosrg@gmail.com</stringProp>
             <stringProp name="MailerModel.login">chinedugodson@gmail.com</stringProp>
             <stringProp name="MailerModel.password">faithimex</stringProp>
             <stringProp name="MailerModel.authType">TLS</stringProp>
@@ -1769,36 +1864,6 @@ Please make sure the game is enabled,, an that Eyecon is up and running.</string
         <stringProp name="ThreadGroup.delay"></stringProp>
       </PostThreadGroup>
       <hashTree>
-        <SmtpSampler guiclass="SmtpSamplerGui" testclass="SmtpSampler" testname="SMTP Sampler" enabled="false">
-          <stringProp name="SMTPSampler.server">smtp.gmail.com</stringProp>
-          <stringProp name="SMTPSampler.serverPort">25</stringProp>
-          <stringProp name="SMTPSampler.mailFrom">chinedugodson@gmail.com</stringProp>
-          <stringProp name="SMTPSampler.replyTo"></stringProp>
-          <stringProp name="SMTPSampler.receiverTo">stano@srgservicesltd.com</stringProp>
-          <stringProp name="SMTPSampler.receiverCC"></stringProp>
-          <stringProp name="SMTPSampler.receiverBCC"></stringProp>
-          <stringProp name="SMTPSampler.subject">Error results</stringProp>
-          <stringProp name="SMTPSampler.suppressSubject">false</stringProp>
-          <stringProp name="SMTPSampler.include_timestamp">true</stringProp>
-          <stringProp name="SMTPSampler.message">Game not available, please find a list of games that are not available</stringProp>
-          <stringProp name="SMTPSampler.plainBody">false</stringProp>
-          <stringProp name="SMTPSampler.attachFile">C:\Users\Stano\Documents\apache-jmeter-4.0\apache-jmeter-4.0\bin\Test Error Results.csv</stringProp>
-          <stringProp name="SMTPSampler.useSSL">false</stringProp>
-          <stringProp name="SMTPSampler.useStartTLS">true</stringProp>
-          <stringProp name="SMTPSampler.trustAllCerts">false</stringProp>
-          <stringProp name="SMTPSampler.enforceStartTLS">false</stringProp>
-          <stringProp name="SMTPSampler.useLocalTrustStore">false</stringProp>
-          <stringProp name="SMTPSampler.trustStoreToUse"></stringProp>
-          <boolProp name="SMTPSampler.use_eml">false</boolProp>
-          <stringProp name="SMTPSampler.emlMessageToSend"></stringProp>
-          <stringProp name="SMTPSampler.useAuth">true</stringProp>
-          <stringProp name="SMTPSampler.password">faithimex</stringProp>
-          <stringProp name="SMTPSampler.username">chinedugodson@gmail.com</stringProp>
-          <stringProp name="SMTPSampler.messageSizeStatistics">true</stringProp>
-          <stringProp name="SMTPSampler.enableDebug">false</stringProp>
-          <collectionProp name="SMTPSampler.headerFields"/>
-        </SmtpSampler>
-        <hashTree/>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -1853,18 +1918,6 @@ Please make sure the game is enabled,, an that Eyecon is up and running.</string
       <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
         <collectionProp name="Arguments.arguments"/>
       </Arguments>
-      <hashTree/>
-      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-        <stringProp name="delimiter">,</stringProp>
-        <stringProp name="fileEncoding"></stringProp>
-        <stringProp name="filename">C:\Users\Stano\Documents\apache-jmeter-4.0\apache-jmeter-4.0\bin\TestData.txt</stringProp>
-        <boolProp name="ignoreFirstLine">false</boolProp>
-        <boolProp name="quotedData">false</boolProp>
-        <boolProp name="recycle">true</boolProp>
-        <stringProp name="shareMode">shareMode.all</stringProp>
-        <boolProp name="stopThread">false</boolProp>
-        <stringProp name="variableNames">username,password,playerID</stringProp>
-      </CSVDataSet>
       <hashTree/>
     </hashTree>
   </hashTree>
